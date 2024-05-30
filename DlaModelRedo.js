@@ -57,12 +57,18 @@ class Visuals {
     constructor() {
         this.grid = new Grid();
         this.setup();
-        this.draw();
+        this.startVisualization();
     }
 
     setup() {
         this.canvas = document.getElementById("myCanvas");
         this.context = this.canvas.getContext("2d");
+    }
+
+    startVisualization() { //aktualisiert die Partikelbewegeung
+        setInterval(() => {
+            this.draw();
+        }, 100);
     }
 
     draw() {
@@ -83,4 +89,6 @@ class Visuals {
             this.context.fillRect(particle.x, particle.y, 10, 10);
         }
     }
+
+
 }
