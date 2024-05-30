@@ -110,6 +110,6 @@ class Visuals {
 
     draw(){
         this.context.fillStyle = "#FF0000";
-        this.context.ellipse
+        Grid.movingParticles.forEach
     }
 }
