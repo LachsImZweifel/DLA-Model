@@ -5,18 +5,6 @@ class Particle {
         this.isCrystal = false;
     }
 
-    //GETTER
-    get x() {
-        return this.x;
-    }
-
-    get y() {
-        return this.y;
-    }
-
-    get isCrystal(){
-        return this.isCrystal;
-    }
 
     //SETTER
     setPosition (x, y){
@@ -46,10 +34,12 @@ class Grid {
         this.crystalParticles.push(crystalParticle1);
         this.fields[25][25] = crystalParticle1;
 
+        let xPos;
+        let yPos;
         for (let i = 0; i < 250; i++) {
             do{
-                let xPos = randomInt(0,50);
-                let yPos = randomInt(0,50);
+                xPos = this.randomInt(0,50);
+                yPos = this.randomInt(0,50);
             }while(!this.checkIfFree(xPos, yPos))
 
             let particle = new Particle (xPos, yPos);
@@ -99,6 +89,7 @@ class Grid {
 
 class Visuals {
     constructor(){
+        this.grid = new Grid;
        this.setup();
        this.draw();
     }
@@ -106,10 +97,11 @@ class Visuals {
     setup(){
         this.canvas = document.getElementById("myCanvas");
         this.context = this.canvas.getContext("2d");
+        this.grid.initiateParticles();
     }
 
     draw(){
         this.context.fillStyle = "#FF0000";
-        Grid.movingParticles.forEach
+        console.log(this.grid.movingParticles);
     }
 }
