@@ -23,7 +23,7 @@ class Grid {
     }
 
     randomInt(min, max) {
-        return Math.floor(Math.random() * (max - min)) + min;
+        return Math.floor(Math.random() * (max - min+1)) + min;
     }
 
     updateParticles() {
@@ -36,9 +36,20 @@ class Grid {
            }else{
                this.addCrystalParticle(particle);
            }
+           this.deleteIfOutside(particle);
        })
+
     }
 
+    deleteIfOutside(particle) {
+        if (particle.x < 0 || particle.x >= 200 || particle.y < 0 || particle.y >= 200) {
+            const index = this.particles.indexOf(particle);
+            if (index > -1) {
+                this.particles.splice(index, 1);
+                console.log("Particle deleted");
+            }
+}
+    }
     checkIfFree(x, y){
         return this.fields[x][y] === 0;
     }
@@ -97,6 +108,4 @@ class Visuals {
             this.context.fillRect(particle.x, particle.y, 1, 1);
         }
     }
-
-
 }
