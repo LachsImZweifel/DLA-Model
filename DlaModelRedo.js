@@ -13,14 +13,10 @@ class Particle {
     setIsCrystal (isCrystal){
         this.isCrystal = isCrystal;
     }
-    updatePosition() {
-        // zufällige Verschiebung um -1 bis 1 auf x- und y-Achse
-        this.x += Math.random() * 2 - 1;
-        this.y += Math.random() * 2 - 1;
-    }
 }
 class Grid {
     constructor() {
+        this.fields = Array.from({ length: 200 }, () => Array.from({ length: 200}, () => 0));
         this.crystalParticles = [];
         this.particles = [];
         this.initializeParticles();
@@ -31,13 +27,25 @@ class Grid {
     }
 
     updateParticles() {
-        for (let particle of this.particles) {
-            particle.updatePosition();
-        }
+       this.particles.forEach(particle => {
+           let newXPos = particle.x += this.randomInt(-1, 1);
+           let newYPos = particle.y += this.randomInt(-1, 1);
+           if(true){
+               particle.x = newXPos;
+               particle.y = newYPos;
+           }else{
+               this.addCrystalParticle(particle);
+           }
+       })
+    }
+
+    checkIfFree(x, y){
+        return this.fields[x][y] === 0;
     }
 
     initializeParticles() {
-        this.addCrystalPartical(75, 75);
+        let crystalParticle = new Particle(75, 75);
+        this.addCrystalParticle(crystalParticle);
         for (let i = 0; i < 100; i++) {
             let xPos = this.randomInt(0, 200);
             let yPos = this.randomInt(0, 200);
@@ -46,10 +54,10 @@ class Grid {
         }
     }
 
-    addCrystalPartical(x, y) {
-        let crystalParticle = new Particle(x, y);
-        crystalParticle.setIsCrystal(true);
-        this.crystalParticles.push(crystalParticle);
+    addCrystalParticle(particle) {
+        particle.setIsCrystal(true);
+        this.crystalParticles.push(particle);
+        this.fields[particle.x][particle.y] = particle;
     }
 }
 
@@ -80,13 +88,13 @@ class Visuals {
         // Zeichne Kristallpartikel
         this.context.fillStyle = "#FF0000";
         for (let crystal of this.grid.crystalParticles) {
-            this.context.fillRect(crystal.x, crystal.y, 10, 10);
+            this.context.fillRect(crystal.x, crystal.y, 1, 1);
         }
 
         // Zeichne alle Partikel
         this.context.fillStyle = "#0000FF"; // Blaue Farbe für normale Partikel
         for (let particle of this.grid.particles) {
-            this.context.fillRect(particle.x, particle.y, 10, 10);
+            this.context.fillRect(particle.x, particle.y, 1, 1);
         }
     }
 
