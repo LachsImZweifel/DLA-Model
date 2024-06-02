@@ -55,6 +55,7 @@ class Grid {
                 this.particles.splice(index, 1);
             }
         }
+
     }
 
     isNextToCrystal(x, y) {
