@@ -53,13 +53,8 @@ class Grid {
             const index = this.particles.indexOf(particle);
             if (index > -1) {
                 this.particles.splice(index, 1);
-                console.log("Particle deleted");
             }
         }
-    }
-
-    checkIfFree(x, y){
-        return this.fields[x][y] === 0;
     }
 
     isNextToCrystal(x, y) {
@@ -76,9 +71,9 @@ class Grid {
     }
 
     initializeParticles() {
-        let crystalParticle = new Particle(75, 75);
+        let crystalParticle = new Particle(100, 100);
         this.addCrystalParticle(crystalParticle);
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 5000; i++) {
             let xPos = this.randomInt(0, 200);
             let yPos = this.randomInt(0, 200);
             let particle = new Particle(xPos, yPos);
@@ -113,7 +108,7 @@ class Visuals {
     startVisualization() {
         setInterval(() => {
             this.draw();
-        }, 100); // refresh every 100ms
+        }, 10); // refresh every 100ms
     }
 
     draw() {
