@@ -33,7 +33,7 @@ class Grid {
             let newYPos = particle.y + this.randomInt(-1, 1);
 
             // Ensure new positions are within bounds
-            newXPos = Math.max(0, Math.min(newXPos, 199));
+            newXPos = Math.max(0, Math.min(newXPos, Visuals.getCanvasWidth()));
             newYPos = Math.max(0, Math.min(newYPos, 199));
 
             particle.x = newXPos;
@@ -52,6 +52,7 @@ class Grid {
         if (particle.x < 0 || particle.x >= 200 || particle.y < 0 || particle.y >= 200) {
             const index = this.particles.indexOf(particle);
             if (index > -1) {
+                console.log("deleted");
                 this.particles.splice(index, 1);
             }
         }
@@ -75,8 +76,8 @@ class Grid {
         let crystalParticle = new Particle(100, 100);
         this.addCrystalParticle(crystalParticle);
         for (let i = 0; i < 5000; i++) {
-            let xPos = this.randomInt(0, 200);
-            let yPos = this.randomInt(0, 200);
+            let xPos = this.randomInt(0, 199);
+            let yPos = this.randomInt(0, 199);
             let particle = new Particle(xPos, yPos);
             this.particles.push(particle);
         }
@@ -103,6 +104,8 @@ class Visuals {
 
     setup() {
         this.canvas = document.getElementById("myCanvas");
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
         this.context = this.canvas.getContext("2d");
     }
 
@@ -128,5 +131,13 @@ class Visuals {
         for (let particle of this.grid.particles) {
             this.context.fillRect(particle.x, particle.y, 1, 1);
         }
+    }
+
+    getCanvasWidth(){
+        return this.canvas.width;
+    }
+
+    getCanvasHeight(){
+        return this.canvas.height;
     }
 }
