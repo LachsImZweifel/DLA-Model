@@ -16,7 +16,9 @@ class Particle {
 }
 
 class Grid {
-    constructor() {
+    constructor(canvasWidth, canvasHeight) {
+        this.canvasWidth = canvasWidth;
+        this.canvasHeight = canvasHeight;
         this.fields = Array.from({ length: 200 }, () => Array.from({ length: 200}, () => 0));
         this.crystalParticles = [];
         this.particles = [];
@@ -33,7 +35,7 @@ class Grid {
             let newYPos = particle.y + this.randomInt(-1, 1);
 
             // Ensure new positions are within bounds
-            newXPos = Math.max(0, Math.min(newXPos, Visuals.getCanvasWidth()));
+          //  newXPos = Math.max(0, Math.min(newXPos, Visuals.getCanvasWidth()));
             newYPos = Math.max(0, Math.min(newYPos, 199));
 
             particle.x = newXPos;
@@ -76,8 +78,8 @@ class Grid {
         let crystalParticle = new Particle(100, 100);
         this.addCrystalParticle(crystalParticle);
         for (let i = 0; i < 5000; i++) {
-            let xPos = this.randomInt(0, 199);
-            let yPos = this.randomInt(0, 199);
+            let xPos = this.randomInt(0, this.canvasHeight-1);
+            let yPos = this.randomInt(0, this.canvasWidth-1);
             let particle = new Particle(xPos, yPos);
             this.particles.push(particle);
         }
@@ -97,8 +99,9 @@ class Grid {
 
 class Visuals {
     constructor() {
-        this.grid = new Grid();
+
         this.setup();
+        this.grid = new Grid(this.canvas.width,this.canvas.height);
         this.startVisualization();
     }
 
@@ -112,7 +115,7 @@ class Visuals {
     startVisualization() {
         setInterval(() => {
             this.draw();
-        }, 10); // refresh every 100ms
+        }, 10); // refresh every 10ms
     }
 
     draw() {
