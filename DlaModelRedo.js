@@ -19,12 +19,13 @@ class Grid {
     constructor(canvasWidth, canvasHeight) {
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
-        this.particleAmount = 50000;
+        this.particleAmount = 100000;
         this.fields = Array.from({ length: canvasWidth }, () => Array.from({ length: canvasHeight}, () => 0));
         this.crystalParticles = [];
         this.particles = [];
         this.initializeParticles();
     }
+
 
     initializeParticles() {
         let crystalParticle = new Particle(this.canvasWidth/2, this.canvasHeight/2);
