@@ -19,14 +19,22 @@ class Grid {
     constructor(canvasWidth, canvasHeight) {
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
-        this.fields = Array.from({ length: 200 }, () => Array.from({ length: 200}, () => 0));
+        this.particleAmount = 50000;
+        this.fields = Array.from({ length: canvasWidth }, () => Array.from({ length: canvasHeight}, () => 0));
         this.crystalParticles = [];
         this.particles = [];
         this.initializeParticles();
     }
 
-    randomInt(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
+    initializeParticles() {
+        let crystalParticle = new Particle(this.canvasWidth/2, this.canvasHeight/2);
+        this.addCrystalParticle(crystalParticle);
+        for (let i = 0; i < this.particleAmount; i++) {
+            let xPos = this.randomInt(0, this.canvasWidth-1);
+            let yPos = this.randomInt(0, this.canvasHeight-1);
+            let particle = new Particle(xPos, yPos);
+            this.particles.push(particle);
+        }
     }
 
     updateParticles() {
@@ -35,8 +43,8 @@ class Grid {
             let newYPos = particle.y + this.randomInt(-1, 1);
 
             // Ensure new positions are within bounds
-          //  newXPos = Math.max(0, Math.min(newXPos, Visuals.getCanvasWidth()));
-            newYPos = Math.max(0, Math.min(newYPos, 199));
+            newXPos = Math.max(0, Math.min(newXPos, this.canvasWidth - 1));
+            newYPos = Math.max(0, Math.min(newYPos, this.canvasHeight - 1));
 
             particle.x = newXPos;
             particle.y = newYPos;
@@ -44,21 +52,8 @@ class Grid {
             // Check if the particle is next to a crystal
             if (this.isNextToCrystal(particle.x, particle.y)) {
                 this.addCrystalParticle(particle);
-            } else {
-                this.deleteIfOutside(particle);
             }
         });
-    }
-
-    deleteIfOutside(particle) {
-        if (particle.x < 0 || particle.x >= 200 || particle.y < 0 || particle.y >= 200) {
-            const index = this.particles.indexOf(particle);
-            if (index > -1) {
-                console.log("deleted");
-                this.particles.splice(index, 1);
-            }
-        }
-
     }
 
     isNextToCrystal(x, y) {
@@ -70,29 +65,22 @@ class Grid {
         return directions.some(([dx, dy]) => {
             const nx = x + dx;
             const ny = y + dy;
-            return nx >= 0 && nx < 200 && ny >= 0 && ny < 200 && this.fields[nx][ny] !== 0;
+            return nx >= 0 && nx < this.canvasWidth && ny >= 0 && ny < this.canvasHeight && this.fields[nx][ny] !== 0;
         });
-    }
-
-    initializeParticles() {
-        let crystalParticle = new Particle(100, 100);
-        this.addCrystalParticle(crystalParticle);
-        for (let i = 0; i < 5000; i++) {
-            let xPos = this.randomInt(0, this.canvasHeight-1);
-            let yPos = this.randomInt(0, this.canvasWidth-1);
-            let particle = new Particle(xPos, yPos);
-            this.particles.push(particle);
-        }
     }
 
     addCrystalParticle(particle) {
         particle.setIsCrystal(true);
         this.crystalParticles.push(particle);
-        this.fields[particle.x][particle.y] = particle;
+        this.fields[Math.round(particle.x)][Math.round(particle.y)] = particle;
         const index = this.particles.indexOf(particle);
         if (index > -1) {
             this.particles.splice(index, 1);
         }
+    }
+
+    randomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 }
 
