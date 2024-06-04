@@ -112,12 +112,4 @@ class Visuals {
             this.context.fillRect(particle.x, particle.y, 1, 1);
         }
     }
-
-    getCanvasWidth(){
-        return this.canvas.width;
-    }
-
-    getCanvasHeight(){
-        return this.canvas.height;
-    }
 }
