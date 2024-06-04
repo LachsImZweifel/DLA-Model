@@ -26,7 +26,6 @@ class Grid {
         this.initializeParticles();
     }
 
-
     initializeParticles() {
         let crystalParticle = new Particle(this.canvasWidth/2, this.canvasHeight/2);
         this.addCrystalParticle(crystalParticle);
