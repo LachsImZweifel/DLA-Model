@@ -2,16 +2,6 @@ class Particle {
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.isCrystal = false;
-    }
-
-    setPosition(x, y){
-        this.x = x;
-        this.y = y;
-    }
-
-    setIsCrystal(isCrystal){
-        this.isCrystal = isCrystal;
     }
 }
 
@@ -70,7 +60,6 @@ class Grid {
     }
 
     addCrystalParticle(particle) {
-        particle.setIsCrystal(true);
         this.crystalParticles.push(particle);
         this.fields[Math.round(particle.x)][Math.round(particle.y)] = particle;
         const index = this.particles.indexOf(particle);
