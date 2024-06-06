@@ -1,7 +1,7 @@
 class DlaHandler {
     constructor() {
         this.grid = new Grid;
-        this.visuals = new Visuals(this.grid);
+        this.visuals = new Client(this.grid);
         this.setup();
         this.draw();
     }

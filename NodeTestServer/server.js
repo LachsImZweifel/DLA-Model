@@ -1,4 +1,4 @@
-
+var DlaHandler = require('./public/DlaHandler.js');
 var express = require('express');
 
 var app = express();
@@ -12,15 +12,15 @@ io.sockets.on('connection' , newConnection);
 
 function newConnection(socket){
     console.log('new connection' + socket.id);
-    let data = {
-        x: 100,
-        y: 100
-    }
-    //socket.broadcast.emit('mouse', data);
-    io.sockets.emit('mouse', data);
-    console.log(data);
+    let dlaHandler = new DlaHandler();
+    socket.emit('gridSizeData', JSON.stringify({width: dlaHandler.grid.gridWidth, height: dlaHandler.grid.gridHeight}));
+    setInterval(updateAndSendData, 100, socket, dlaHandler);
 }
 
-
+function updateAndSendData(socket, dlaHandler){
+    dlaHandler.updateParticles();
+    //console.log(crystalArray);
+    socket.emit('DlaData', JSON.stringify({crystals: dlaHandler.grid.crystalParticles, particles: dlaHandler.grid.particles}));
+}
 console.log("Server-side code running");
 
