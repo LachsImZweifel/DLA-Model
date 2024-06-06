@@ -1,5 +1,8 @@
 class Grid {
     constructor(canvasWidth, canvasHeight) {
+        if (Grid.instance) {
+            return Grid.instance;
+        }
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
         this.particleAmount = 100000;
@@ -7,6 +10,7 @@ class Grid {
         this.crystalParticles = [];
         this.particles = [];
         this.initializeParticles();
+        Grid.instance = this;
     }
 
     initializeParticles() {
