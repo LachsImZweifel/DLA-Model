@@ -16,8 +16,8 @@ function newConnection(socket){
         x: 100,
         y: 100
     }
-    socket.broadcast.emit('mouse', data);
-    // io.sockets.emit('mouse', data);
+    //socket.broadcast.emit('mouse', data);
+    io.sockets.emit('mouse', data);
     console.log(data);
 }
 

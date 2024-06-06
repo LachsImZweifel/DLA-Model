@@ -11,6 +11,7 @@ class Visuals {
     }
 
     newDrawing(data) {
+        console.log(data);
         this.context.fillRect(data.x, data.y, 20, 20);
     }
 }
