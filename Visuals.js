@@ -1,20 +1,13 @@
 class Visuals {
-    constructor() {
-        this.grid = new Grid(this.canvas.width,this.canvas.height);
-        this.startVisualization();
+    constructor(Grid) {
+        this.canvas = document.getElementById("myCanvas");
+        this.context = this.canvas.getContext("2d");
+        this.grid = Grid;
     }
 
     setup() {
-        this.canvas = document.getElementById("myCanvas");
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
-        this.context = this.canvas.getContext("2d");
-    }
-
-    startVisualization() {
-        setInterval(() => {
-            this.draw();
-        }, 10); // refresh every 10ms
+        this.canvas.width = this.grid.canvasWidth;
+        this.canvas.height = this.grid.canvasHeight;
     }
 
     draw() {

@@ -1,19 +1,19 @@
-
-
 class DlaHandler {
     constructor() {
-        this.Grid = new Grid;
-        this.Visuals = new Visuals;
+        this.grid = new Grid;
+        this.visuals = new Visuals(this.grid);
         this.setup();
-        this.draw()
+        this.draw();
     }
 
     setup() {
-        this.Grid.initializeParticles();
-        this.Visuals.setup();
+        this.grid.initializeParticles();
+        this.visuals.setup();
     }
     draw() {
-        this.Grid.updateParticles();
-        this.Visuals.draw();
+        setInterval(() => {
+            this.grid.updateParticles();
+            this.visuals.draw();
+        }, 10); // refresh every 10ms
     }
 }

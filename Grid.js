@@ -1,12 +1,12 @@
 class Grid {
-    constructor(canvasWidth, canvasHeight) {
+    constructor() {
         if (Grid.instance) {
             return Grid.instance;
         }
-        this.canvasWidth = canvasWidth;
-        this.canvasHeight = canvasHeight;
+        this.canvasWidth = 1600;
+        this.canvasHeight = this.canvasWidth / 16 * 9;
         this.particleAmount = 100000;
-        this.fields = Array.from({ length: canvasWidth }, () => Array.from({ length: canvasHeight}, () => 0));
+        this.fields = Array.from({ length: this.canvasWidth }, () => Array.from({ length: this.canvasHeight}, () => 0));
         this.crystalParticles = [];
         this.particles = [];
         Grid.instance = this;
