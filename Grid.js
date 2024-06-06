@@ -9,7 +9,6 @@ class Grid {
         this.fields = Array.from({ length: canvasWidth }, () => Array.from({ length: canvasHeight}, () => 0));
         this.crystalParticles = [];
         this.particles = [];
-        this.initializeParticles();
         Grid.instance = this;
     }
 

@@ -1,6 +1,5 @@
 class Visuals {
     constructor() {
-        this.setup();
         this.grid = new Grid(this.canvas.width,this.canvas.height);
         this.startVisualization();
     }
@@ -21,8 +20,6 @@ class Visuals {
     draw() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height); // Canvas leeren
 
-        this.grid.updateParticles();
-
         // Zeichne Kristallpartikel
         this.context.fillStyle = "#FF0000";
         for (let crystal of this.grid.crystalParticles) {
@@ -36,5 +33,3 @@ class Visuals {
         }
     }
 }
-
-export default Visuals;
