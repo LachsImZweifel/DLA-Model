@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Canvas Example</title>
+    <script src="Particle.js"></script>
+    <script src="Grid.js"></script>
+    <script src="Visuals.js"></script>
 </head>
 <body>
     <canvas id="myCanvas" ></canvas>
-    <script src="DlaModelRedo.js"></script>
-    <script> 
-    visuals=new Visuals();
+    <script>
+        import Visuals from './Visuals.js';
+        new Visuals();
     </script>
 </body>
 </html>
