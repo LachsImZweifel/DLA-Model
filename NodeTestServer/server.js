@@ -11,16 +11,15 @@ var io = socket(server);
 io.sockets.on('connection' , newConnection);
 
 function newConnection(socket){
+    console.log("Server-side code running");
     console.log('new connection' + socket.id);
     let dlaHandler = new DlaHandler();
     socket.emit('gridSizeData', JSON.stringify({width: dlaHandler.grid.gridWidth, height: dlaHandler.grid.gridHeight}));
-    setInterval(updateAndSendData, 100, socket, dlaHandler);
+    setInterval(updateAndSendData, 300, socket, dlaHandler);
 }
 
 function updateAndSendData(socket, dlaHandler){
     dlaHandler.updateParticles();
-    //console.log(crystalArray);
     socket.emit('DlaData', JSON.stringify({crystals: dlaHandler.grid.crystalParticles, particles: dlaHandler.grid.particles}));
 }
-console.log("Server-side code running");
 

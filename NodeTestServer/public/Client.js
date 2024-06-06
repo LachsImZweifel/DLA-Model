@@ -14,7 +14,6 @@ class Client {
 
     newDrawing(data) {
         data = JSON.parse(data);
-        console.log(data);
         this.visuals.draw(data.crystals, data.particles);
     }
 }
