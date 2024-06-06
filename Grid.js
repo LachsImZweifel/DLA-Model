@@ -3,21 +3,21 @@ class Grid {
         if (Grid.instance) {
             return Grid.instance;
         }
-        this.canvasWidth = 1600;
-        this.canvasHeight = this.canvasWidth / 16 * 9;
+        this.gridWidth = 1600;
+        this.gridHeight = this.gridWidth / 16 * 9;
         this.particleAmount = 100000;
-        this.fields = Array.from({ length: this.canvasWidth }, () => Array.from({ length: this.canvasHeight}, () => 0));
+        this.fields = Array.from({ length: this.gridWidth }, () => Array.from({ length: this.gridHeight}, () => 0));
         this.crystalParticles = [];
         this.particles = [];
         Grid.instance = this;
     }
 
     initializeParticles() {
-        let crystalParticle = new Particle(this.canvasWidth/2, this.canvasHeight/2);
+        let crystalParticle = new Particle(this.gridWidth/2, this.gridHeight/2);
         this.addCrystalParticle(crystalParticle);
         for (let i = 0; i < this.particleAmount; i++) {
-            let xPos = this.randomInt(0, this.canvasWidth-1);
-            let yPos = this.randomInt(0, this.canvasHeight-1);
+            let xPos = this.randomInt(0, this.gridWidth-1);
+            let yPos = this.randomInt(0, this.gridHeight-1);
             let particle = new Particle(xPos, yPos);
             this.particles.push(particle);
         }
@@ -29,8 +29,8 @@ class Grid {
             let newYPos = particle.y + this.randomInt(-1, 1);
 
             // Ensure new positions are within bounds
-            newXPos = Math.max(0, Math.min(newXPos, this.canvasWidth - 1));
-            newYPos = Math.max(0, Math.min(newYPos, this.canvasHeight - 1));
+            newXPos = Math.max(0, Math.min(newXPos, this.gridWidth - 1));
+            newYPos = Math.max(0, Math.min(newYPos, this.gridHeight - 1));
 
             particle.x = newXPos;
             particle.y = newYPos;
@@ -51,7 +51,7 @@ class Grid {
         return directions.some(([dx, dy]) => {
             const nx = x + dx;
             const ny = y + dy;
-            return nx >= 0 && nx < this.canvasWidth && ny >= 0 && ny < this.canvasHeight && this.fields[nx][ny] !== 0;
+            return nx >= 0 && nx < this.gridWidth && ny >= 0 && ny < this.gridHeight && this.fields[nx][ny] !== 0;
         });
     }
 
