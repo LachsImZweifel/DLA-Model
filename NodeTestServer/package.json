@@ -1,0 +1,19 @@
+{
+  "name": "nodetestserver",
+  "version": "1.0.0",
+  "description": "node testing",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "p5.js",
+    "node"
+  ],
+  "author": "Hendrik Weber",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
